@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+        
+    <div id="BidderLoginForm">
+        <form id="bidderLogin">
+            <label for="userid">Userid</label>
+            <input type="text" id="userid" name="userid" value="8881"><br>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password"value="Innamul@01"><br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#bidderLogin").submit(function(event){
+                event.preventDefault();
+
+                var userid=$("#userid").val();
+                var password=$("#password").val();
+                
+                $.ajax({
+
+                    type:"POST",
+                    dataType: 'json',
+                    timeout: 500,
+                    url:"http://localhost:8080/bidderC/bidderLogin/"+userid+"/"+password,
+                    data:{
+                        userid:userid,
+                        password:password
+                    },
+                    success:function(response,status,xhr){
+                        if(response==1){
+                            
+                            alert("login success")
+
+                            window.location.href="bidderPanel.html";
+                        }else{
+                            $("#errorMessage").text("Invalid username or password.");
+
+                        }
+                    },
+                    error:function(jqXhr, textStatus, errorMessage){
+        		  	alert("failure....")
+                        $("#errorMessage").text("An error occurred while processing your request.");
+
+                    }
+                });
+            });
+        });
+    </script>
+   
+</body>
+</html>

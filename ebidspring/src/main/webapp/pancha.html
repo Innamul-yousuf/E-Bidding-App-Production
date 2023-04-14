@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<LINK href="PanchaCSS.css" rel="stylesheet" type="text/css">
+<style>
+.content {
+	display: none
+}
+</style>
+
+
+</head>
+<body class="background-image">
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+
+	<script>
+$(document).ready(function () {
+	$("#b1").click(function (event) {
+		event.preventDefault()	
+var aid = document.getElementById("admin_id").value;
+var pass = document.getElementById("pass").value;
+var url3="http://localhost:2020/MNCProjectWeb/rest/admin/log/"+aid+"/"+pass;
+//alert(url3)
+
+        $.ajax(url3,
+       		{
+        	    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		  type:'get',
+        		   success: function (data,status,xhr) {  
+        		    	  let output = "<tr><td>" + data.name + "</td><td>" + data.id + "</td><td>"+ data .pass + "</td><td>" + data.email + "</td><td>" + data.whatsapp + "</td><td>"+ data.flag+  "</td><td></tr>";
+        		        var daid=data.id;
+        		        var dpass=data.pass;
+        		        alert("login success")
+        		    	  $("#output").html(output);
+        		        
+        		         $("#adminform").hide();
+        		         $("#MenuBox").show();
+        		         
+        		     },
+        		   error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		  	alert("failure....")
+        		       $('p').append('Error: ' + errorMessage);
+        		     }	
+        	  });
+	}); 
+});
+
+</script>
+
+	<script>
+$(document).ready(function () {
+	$("#getId").click(function (event) {
+		event.preventDefault()	
+var sid = document.getElementById("student_id").value;
+var cid = document.getElementById("course_id").value;
+var url="http://localhost:2020/MNCProjectWeb/rest/pancha/findById/"+sid+"/"+cid
+//alert(url)
+
+        $.ajax(url,
+       		{
+        	    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		  type:'get',
+        		   success: function (data,status,xhr) {  
+        		    	  let output = "<tr><td>" + data.student_id + "</td><td>" + data.course_id + "</td><td>"+ data .cod_count + "</td><td>" + data.qod_count + "</td><td>" + data.tod_count + "</td><td>"+ data.low_count+ "</td><td>"+ data.vow_count + "</td><td></tr>";
+        		        $("#output").html(output);
+        		         $("#tbstock").show();
+        		     },
+        		   error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		  	alert("failure....")
+        		       $('p').append('Error: ' + errorMessage);
+        		     }	
+        	  });
+	}); 
+});
+
+$(document).ready(function () {
+	$("#pdf").click(function (event) {
+		event.preventDefault()
+		var sid = document.getElementById("student_id").value;
+var cid = document.getElementById("course_id").value;
+var url2="http://localhost:2020/MNCProjectWeb/rest/pdf/ipdf/"+sid+"/"+cid
+alert(url2)
+document.location=url2; 
+	});
+}); 
+$(document).ready(function () {
+	$("#email").click(function (event) {
+		event.preventDefault()
+		var pdf ="IndividualPanchatanthraReport";
+var url3="http://localhost:2020/MNCProjectWeb/rest/email/sendById/" + $( "#student_id" ).val()+"/"+$( "#course_id" ).val()+"/"+pdf;
+		alert(url3)		  
+		document.location=url3; 
+	});
+
+});
+
+
+$(function() {
+	  $(".but").on("click",function(e) {
+	    e.preventDefault();
+	    $("#content").load(this.id+".html");
+	  });
+	});	
+
+$(document).ready(function () {
+	$("#getAll").click(function (event) {
+		event.preventDefault()	
+var url="http://localhost:2020/MNCProjectWeb/rest/pancha/findAll"
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.cod_count+"</td><td>" + i.qod_count+"</td><td>" + i.tod_count+"</td><td>" +i.low_count + "</td><td>" + i.vow_count  +"</td><td></tr>");
+            		    	  $("#output").html(output);
+            		          $("#tbstock").show();
+            		        },
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	alert("failure....")
+        		          $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+
+</script>
+
+	<!--ADMIN FORM  -->
+	<p></p>
+	<h1>ADMIN LOGIN</h1>
+	<div class="admin" id="adminform">
+		<form id="sendEmail" method="post">
+
+			Admin Id: <input type="text" name="admin_id" id="admin_id"
+				value="8047"> Password <input type="text" name="pass"
+				id="pass" value="secret"> <input type="submit"
+				value="Submit" id="b1">
+		</form>
+	</div>
+
+	<div class="content" id="getID">
+		<form id="sendEmail" method="post">
+			<input type="text" name="StudentID" id="student_id" value="123123">
+			<input type="text" name="CourseID" id="course_id" value="444">
+			<input type="submit" value="view" id="getId"> <input
+				type="submit" value="generate pdf" id="pdf"> <input
+				type="submit" value="email" id="email">
+		</form>
+	</div>
+
+	<div class="content" id="getALL">
+		<form method="post">
+			<input type="submit" value="Get all Panchatanthra" id="getAll">
+		</form>
+	</div>
+
+	<table style="display: none" id="tbstock" class="table table-bordered">
+		<tr class="table-head">
+			<th>Student id</th>
+			<th>Course id</th>
+			<th>COD</th>
+			<th>QOD</th>
+			<th>TOD</th>
+			<th>LOW</th>
+			<th>VOW</th>
+		</tr>
+		<tbody id="output">
+	</table>
+	<script>
+	$(document).ready(function () {
+		$("#studentReport").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+	         $("#StudentReport1").show();
+	         
+		});
+	});
+	$(document).ready(function () {
+		$("#subject").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+	         $("#Subjects").show();
+	         
+		});
+	});
+	</script>
+	<!-- MENU BOX -->
+	<div class="content" id="MenuBox">
+		<form id="MenuBox" method="post">
+			<input type="button" value="Student Report" id="studentReport">
+			<input type="button" value="Subject" id="subject"> <input
+				type="button" value="Certificate" id="Certifiate"> <input
+				type="button" value="Update Database" id="db">
+		</form>
+	</div>
+	<script>
+	$(document).ready(function () {
+		$("#studentReportSTU").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+	         $("#getID").show();
+	       
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function () {
+		$("#overallreportget").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#getALL").show();
+		});
+	});
+	</script>
+	<!-- STUDENT REPORT -->
+	<div class="content" id="StudentReport1">
+		<form id="StudentReport1" method="post">
+			<input type="button" value="Student Report" id="studentReportSTU">
+			<input type="button" value="Overall Report" id="overallreportget">
+		</form>
+	</div>
+
+	<!-- Subject Wise-->
+	<div class="content" id="Subjects">
+		<form id="Subjects" method="post">
+			<BR> <input type="button" value="COD" id="cod"><BR>
+			<input type="button" value="QOD" id="qod"><BR> <input
+				type="button" value="TOD" id="tod"><BR> <input
+				type="button" value="LOW" id="low"><BR> <input
+				type="button" value="VOW" id="vow"><BR>
+		</form>
+	</div>
+	<script>
+	$(document).ready(function () {
+		$("#cod").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#codform").show();
+		});
+	});
+	</script>
+
+	<script>
+	$(document).ready(function () {
+		$("#qod").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#qodform").show();
+		});
+	});
+	</script>
+
+	<script>
+	$(document).ready(function () {
+		$("#tod").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#todform").show();
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function () {
+		$("#low").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#lowform").show();
+		});
+	});
+	</script>
+	<script>
+	$(document).ready(function () {
+		$("#vow").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#vowform").show();
+		});
+	});
+	</script>
+	<script>
+$(document).ready(function () {
+	$("#cod1").click(function (event) {
+		event.preventDefault()	
+
+var url="http://localhost:2020/MNCProjectWeb/rest/course_count/cod"
+//alert(url)
+<!--
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.cod_count+"</td><td></tr>");
+            		    	  $("#codTabt").html(output);
+            		    	  $("#codTab").show();
+        		      },
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	  $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+
+$(document).ready(function () {
+	$("#cod2").click(function (event) {
+		event.preventDefault()
+var url2="http://localhost:2020/MNCProjectWeb/rest/codp"
+document.location=url2; 
+	});
+});
+
+$(document).ready(function () {
+	$("#cod3").click(function (event) {
+		event.preventDefault()
+	var pdf ="Cod_Performance";
+var url2="http://localhost:2020/MNCProjectWeb/rest/emailAdmin/"+pdf;
+alert(url2)
+document.location=url2; 
+	});
+}); 
+     </script>
+	<!-- COD-->
+	<div class="content" id="codform">
+		<form method="post">
+			<input type="submit" value="COD" id="cod1"> <input
+				type="submit" value="GeneratePdf" id="cod2"> <input
+				type="submit" value="sendToAdmin" id="cod3">
+		</form>
+	</div>
+	<script>
+    </script>
+	<!-- QOD-->
+	<div class="content" id="qodform">
+		<form method="post">
+			<input type="submit" value="QOD" id="qod1"> <input
+				type="submit" value="GeneratePdf" id="qod2"> <input
+				type="submit" value="sendToAdmin" id="qod3">
+		</form>
+	</div>
+	<!-- TOD-->
+	<div class="content" id="todform">
+		<form method="post">
+			<input type="submit" value="TOD" id="tod1"> <input
+				type="submit" value="GeneratePdf" id="tod2"> <input
+				type="submit" value="sendToAdmin" id="tod3">
+		</form>
+	</div>
+
+
+	<!-- LOW-->
+	<div class="content" id="lowform">
+		<form method="post">
+			<input type="submit" value="LOW" id="low1"> <input
+				type="submit" value="GeneratePdf" id="low2"> <input
+				type="submit" value="sendToAdmin" id="low3">
+		</form>
+	</div>
+	<!-- VOW-->
+	<div class="content" id="vowform">
+		<form method="post">
+			<input type="submit" value="VOW" id="vow1"> <input
+				type="submit" value="GeneratePdf" id="vow2"> <input
+				type="submit" value="sendToAdmin" id="vow3">
+		</form>
+	</div>
+
+	<script>	
+$(document).ready(function () {
+	$("#qod1").click(function (event) {
+		event.preventDefault()	
+
+var url="http://localhost:2020/MNCProjectWeb/rest/course_count/qod"
+//alert(url)
+
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.qod_count+"</td><td></tr>");
+            		    	  $("#qodTabt").html(output);
+            		    	  $("#qodTab").show();
+        		      },
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	  $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+
+$(document).ready(function () {
+	$("#qod2").click(function (event) {
+		event.preventDefault()
+var url2="http://localhost:2020/MNCProjectWeb/rest/qodp"
+document.location=url2; 
+	});
+});
+
+$(document).ready(function () {
+	$("#qod3").click(function (event) {
+		event.preventDefault()
+	var pdf ="Qod_Performance";
+var url2="http://localhost:2020/MNCProjectWeb/rest/emailAdmin/"+pdf;
+alert(url2)
+document.location=url2; 
+	});
+}); 
+ 
+
+     </script>
+	<script>
+$(document).ready(function () {
+	$("#tod1").click(function (event) {
+		event.preventDefault()	
+
+var url="http://localhost:2020/MNCProjectWeb/rest/course_count/tod"
+//alert(url)
+
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.tod_count+"</td><td></tr>");
+        		    	     $("#todTabt").html(output);
+           		    	  $("#todTab").show();
+            		         
+        		    	  
+        		      },
+        		    
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	alert("failure....")
+        		          $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+$(document).ready(function () {
+	$("#tod2").click(function (event) {
+		event.preventDefault()
+	
+var url2="http://localhost:2020/MNCProjectWeb/rest/todp"
+
+document.location=url2; 
+	});
+}); 
+$(document).ready(function () {
+	$("#tod3").click(function (event) {
+		event.preventDefault()
+	var pdf ="Tod_Performance";
+var url2="http://localhost:2020/MNCProjectWeb/rest/emailAdmin/"+pdf;
+alert(url2)
+document.location=url2; 
+	});
+});
+        		  </script>
+
+	<script>
+$(document).ready(function () {
+	$("#low1").click(function (event) {
+		event.preventDefault()	
+
+var url="http://localhost:2020/MNCProjectWeb/rest/course_count/low"
+//alert(url)
+
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.low_count+"</td><td></tr>");
+        		    	     $("#lowTabt").html(output);
+           		    	  $("#lowTab").show();
+            		         
+        		    	  
+        		      },
+        		    
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	alert("failure....")
+        		          $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+$(document).ready(function () {
+	$("#low2").click(function (event) {
+		event.preventDefault()
+	
+var url2="http://localhost:2020/MNCProjectWeb/rest/lowp"
+
+document.location=url2; 
+	});
+}); 
+$(document).ready(function () {
+	$("#low3").click(function (event) {
+		event.preventDefault()
+	var pdf ="Low_Performance";
+var url2="http://localhost:2020/MNCProjectWeb/rest/emailAdmin/"+pdf;
+alert(url2)
+document.location=url2; 
+	});
+});
+        		  </script>
+	<script>
+        		  $(document).ready(function () {
+	$("#vow1").click(function (event) {
+		event.preventDefault()	
+
+var url="http://localhost:2020/MNCProjectWeb/rest/course_count/vow"
+//alert(url)
+
+        $.ajax(url,
+        		{
+        		    dataType: 'json', // type of response data
+        		    timeout: 500,     // timeout milliseconds
+        		    type:'get',
+        		    success: function (data,status,xhr) {  
+        		    
+        		    	     let output = data.map(i => "<tr><td>" + i.student_id + "</td><td>" + i.course_id +"</td><td>" + i.vow_count+"</td><td></tr>");
+        		    	     $("#vowTabt").html(output);
+           		    	  $("#vowTab").show();
+            		         
+        		    	  
+        		      },
+        		    
+        		      error: function (jqXhr, textStatus, errorMessage) { // error callback
+        		      	alert("failure....")
+        		          $('p').append('Error: ' + errorMessage);
+        		      }
+        		  });
+        		  });
+        		  });
+$(document).ready(function () {
+	$("#vow2").click(function (event) {
+		event.preventDefault()
+	
+var url2="http://localhost:2020/MNCProjectWeb/rest/vowp"
+
+document.location=url2; 
+	});
+}); 
+$(document).ready(function () {
+	$("#vow3").click(function (event) {
+		event.preventDefault()
+	var pdf ="Vow_Performance";
+var url2="http://localhost:2020/MNCProjectWeb/rest/emailAdmin/"+pdf;
+alert(url2)
+document.location=url2; 
+	});
+});
+        		  </script>
+	<table style="display: none" class="table table-bordered" id="codTab">
+		<thead>
+			<tr class="table-head">
+				<th>student_id</th>
+				<th>Course_id</th>
+				<th>COD</th>
+			</tr>
+		</thead>
+		<tbody id="codTabt">
+	</table>
+
+	<table style="display: none" class="table table-bordered" id="qodTab">
+		<thead>
+			<tr class="table-head">
+				<th>student_id</th>
+				<th>Course_id</th>
+				<th>QOD</th>
+			</tr>
+		</thead>
+		<tbody id="qodTabt">
+	</table>
+
+	<table style="display: none" class="table table-bordered" id="todTab">
+		<thead>
+			<tr class="table-head">
+				<th>student_id</th>
+				<th>Course_id</th>
+				<th>TOD</th>
+			</tr>
+		</thead>
+		<tbody id="todTabt">
+	</table>
+
+	<table style="display: none" class="table table-bordered" id="lowTab">
+		<thead>
+			<tr class="table-head">
+				<th>student_id</th>
+				<th>Course_id</th>
+				<th>LOW</th>
+			</tr>
+		</thead>
+		<tbody id="lowTabt">
+	</table>
+
+	<table style="display: none" class="table table-bordered" id="vowTab">
+		<thead>
+			<tr class="table-head">
+				<th>student_id</th>
+				<th>Course_id</th>
+				<th>VOW</th>
+			</tr>
+		</thead>
+		<tbody id="vowTabt">
+	</table>
+	<!-- CERTIFICATE -->
+	<script>
+	$(document).ready(function () {
+		$("#Certifiate").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+	         $("#cerform").show();
+	       
+		});
+	});
+	
+	$(document).ready(function () {
+		$("#cer2").click(function (event) {
+			event.preventDefault()
+			var sid = document.getElementById("student_id").value;
+	var cid = document.getElementById("course_id").value;
+	var url3="http://localhost:2020/MNCProjectWeb/rest/cer/cpdf/" +sid+"/"+cid;
+			//alert(url3)		  
+			document.location=url3; 
+		});
+
+	});
+	$(document).ready(function () {
+		$("#cer3").click(function (event) {
+			event.preventDefault()
+		var pdf ="Certificate";
+	var url3="http://localhost:2020/MNCProjectWeb/rest/email/sendById/" + $( "#student_id" ).val()+"/"+$( "#course_id" ).val()+"/"+pdf;
+			//alert(url3)		  
+			document.location=url3; 
+		});
+
+	});
+
+
+
+	</script>
+
+	<div class="content" id="cerform">
+
+		<form id="sendEmailCer" method="post">
+			<input type="text" name="StudentID" id="student_id" value="123123">
+			<input type="text" name="CourseID" id="course_id" value="444">
+
+			<input type="submit" value="generate certificate" id="cer2">
+			<input type="submit" value="view certificate" id="cerv">
+			<button id="view-pdf-button">View PDF</button>
+			<input type="submit" value="email" id="cer3">
+		</form>
+	</div>
+
+	<script>
+	$(document).ready(function () {
+		$("#cerv").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+	         $("#cerpdfview").show();
+	       
+		});
+	});
+	</script>
+
+
+	<div class="content" id="cerpdfview">
+		<iframe src="http://localhost:2020/MNCProjectWeb/Certificate.pdf"
+			width="80%" height="600"></iframe>
+
+
+
+
+	</div>
+
+
+	<script>
+  $(document).ready(function(){
+    $("#view-pdf-button").click(function(){
+        $("body").append("<object data='http://localhost:2020/MNCProjectWeb/Cod_Performance.pdf' type='application/pdf' width='100%' height='600'/>");
+    });
+  });
+</script>
+
+
+
+	<!-- UPDATE DATABASE -->
+	<div class="content" id="udbform">
+		<form id="sendEmail" method="post">
+			<input type="submit" value="update All" id="udba"> <input
+				type="submit" value="delete All" id="udbd">
+		</form>
+	</div>
+
+	<script>
+	$(document).ready(function () {
+		$("#db").click(function (event) {
+			event.preventDefault()
+			 $("#adminform").hide();
+			  $("#udbform").show();
+		});
+	});
+	</script>
+
+	<script>
+	$(document).ready(function () {
+		$("#udba").click(function (event) {
+			event.preventDefault()
+		
+	var url2="http://localhost:2020/MNCProjectWeb/rest/panchaAll/addAll"
+	//alert(url2)
+	document.location=url2; 
+		});
+	}); 
+
+	$(document).ready(function () {
+		$("#udbd").click(function (event) {
+			event.preventDefault()
+		
+	var url2="http://localhost:2020/MNCProjectWeb/rest/pancha/deleteAll"
+	//alert(url2)
+	document.location=url2; 
+		});
+	}); 
+	
+	</script>
+
+</body>
+
+
+</html>
+
