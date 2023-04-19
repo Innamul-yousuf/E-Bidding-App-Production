@@ -76,7 +76,7 @@ public void updateBidderName(Long productId,String bname) {
 	
 }
 
-public int checkValidBidAndUpdate(Long bid_amt, Long pid) {
+public String checkValidBidAndUpdate(Long bid_amt, Long pid) {
 
 	ProductService productService = new ProductService();
 	Product product =new Product();
@@ -88,17 +88,17 @@ public int checkValidBidAndUpdate(Long bid_amt, Long pid) {
 	
 			if(product.getSold()==1) {
 				productService.updatePcostByPid(pid, bid_amt);
-				return 1;
+				return "Done";
 			}
 			else {
 				System.out.println("Bidding Time started or Ended!");
-				return 0;
+				return "Not Done";
 			}
 		
 }
 	 else {
 		System.out.println("Low Bid Amount!");
-		return 0;
+		return "Not Done";
 	}
 	
 }

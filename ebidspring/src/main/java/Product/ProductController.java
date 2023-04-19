@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/productC")
+
 public class ProductController {
 	EbidspringApplication pro=new EbidspringApplication();
 	@Autowired
@@ -41,22 +44,29 @@ public class ProductController {
 	public void deleteProduct(@PathVariable Long id) {
 		productService.deleteProduct(id);
 	}
-	@PostMapping("/productTo1/{pid}")
+	@GetMapping("/productTo1/{pid}")
 	public void updateSoldTo1(@PathVariable("pid") Long pid) {
 		productService.updateSoldTo1(pid);
 	}
-	@PostMapping("/productTo0/{pid}")
+	@GetMapping("/productTo0/{pid}")
 	public void updateSoldTo0(@PathVariable("pid") Long pid) {
 		productService.updateSoldTo0(pid);
 	}
 	@GetMapping("/service/{bamt}/{pid}")
-	public void checkValidBidAndUpdate(@PathVariable Long bamt, @PathVariable Long pid){
-		productService.checkValidBidAndUpdate(bamt, pid);
+	public int checkValidBidAndUpdate(@PathVariable Long bamt, @PathVariable Long pid){
+		String res=productService.checkValidBidAndUpdate(bamt, pid);
+		if(res=="Done") {
+			return 1;
+		}else {
+			return 0;
+		}
+		
 	}
 	
 	@GetMapping("/service/uname/{pid}/{bname}")
-	public void updateBname(@PathVariable Long pid, @PathVariable String bname){
+	public int updateBname(@PathVariable Long pid, @PathVariable String bname){
 		productService.updateBidderName(pid, bname);
+		return 6;
 	}
 //	@GetMapping("/service/getname/{bid}")
 //	public void getBidderName(@PathVariable Long bid) {

@@ -10,5 +10,93 @@
 </head>
 <body>
     Bidder Panel
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+       
+    
+    <h1>Bidding Product Information</h1>
+    <table id="bidinfo">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Seller ID</th>
+                <th>Bid Start date</th>
+                <th>Bid End date</th>
+                <th>Start Bid</th>
+                <th>End Bid</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+
+    </table>
+    <script>
+
+$(document).ready(function() {
+            $.ajax({
+                url:"http://localhost:8080/productC/product",
+                type: "GET",
+                dataType: "json",
+                 success: function(data) {
+                    var soldValue = null;
+                 $.each(data, function(index, item) {
+                   var startdate=item.starttime.substring(0, 10);
+                   var enddate=item.endtime.substring(0, 10);
+                    var row=$("<tr><td>"+item.pid+"</td><td>"+item.pname+"</td><td>"+item.pseller+"</td><td>"+startdate+"</td><td>"+enddate+"<td><button class='join-btn' data-pid='" + item.pid + "'>Join</button></td><td><button class='leave-btn' data-pid='" + item.pid + "'>Leave</button></td><tr>");
+                        $("#bidinfo tbody").append(row);
+                        var sold = $("<div class='soldv' data-sold='" + item.sold + "'></div>");
+    row.append(sold);
+            });
+
+            
+            $(".join-btn").click(function (event) {
+                var sold = $(".soldv").data("sold");
+                var sold = parseInt($(this).closest("tr").find(".soldv").data("sold"));
+
+                var soldi=parseInt(sold);
+  var pid = $(this).data("pid");
+console.log(soldi);
+                sessionStorage.setItem("pid", pid);
+                
+    if(soldi==1){
+        var pidFromSession = sessionStorage.getItem("pid");
+
+        var url = "http://localhost:8080/"+"1111.html";
+        document.location=url;
+    }
+    else{
+        var url2 = "http://localhost:8080/ProductBidding/errorPage";
+        document.location=url2;
+    }
+    
+});
+
+$(".end-btn").click(function (event) {
+    event.preventDefault();
+    var pid = $(this).data("pid");
+    var url = "http://localhost:8080/productC/312312productTo0/" + pid;
+    $.ajax({
+        url: url,
+        method: "GET",
+        success: function(response) {
+            // handle the response here
+            location.reload();
+        },
+        error: function(error) {
+            // handle the error here
+        }
+    });
+});
+        },
+        error: function(xhr, status, error) {
+        console.log("Error: " + error);
+      }
+        });
+    });
+    </script>
+    
+    
 </body>
 </html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+       
+        <script>
+        var pidinAjax;
+            var biddername;
+$(document).ready(function() {
+    class ProductObject {
+  constructor(pid, pname, pseller,pcost, startdate, enddate, sold, pbuyer) {
+    this.pid = pid;
+    this.pname = pname;
+    this.pcost=pcost;
+    this.pseller = pseller;
+    this.startdate = startdate;
+    this.enddate = enddate;
+    this.sold = sold;
+    this.pbuyer=pbuyer;
+  }
+}
+var pidFromSession = sessionStorage.getItem("pid");
+console.log(pidFromSession);
+    $.ajax({
+        
+        url: 'http://localhost:8080/productC/product/'+pidFromSession,
+        type: 'GET',
+        dataType: 'json',
+       
+        success: function(data) {
+            var startdates=data.starttime.substring(0, 10);
+            var enddates=data.endtime.substring(0, 10);
+                   
+            var row = new ProductObject(data.pid, data.pname, data.pcost, data.pseller, data.startdate, data.enddate, data.sold, data.pbuyer);
+          
+           document.getElementById("result1").innerHTML = row.pid;
+           document.getElementById("result2").innerHTML = row.pname;
+           document.getElementById("result3").innerHTML = row.pcost;
+           document.getElementById("result4").innerHTML = row.pseller;
+           document.getElementById("result5").innerHTML = startdates;
+           document.getElementById("result6").innerHTML = enddates;
+           document.getElementById("result7").innerHTML = row.sold;
+           document.getElementById("result8").innerHTML = row.pbuyer;
+           pidinAjax=row.pid;
+           var username = sessionStorage.getItem("userid");
+           var password = sessionStorage.getItem("password");
+            console.log(username, password);
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+});
+
+   
+
+    
+
+    $(document).ready(function() {
+        $('#BidamtForm').submit(function(event) {
+            var formData = $(this).serialize();
+            var userid = sessionStorage.getItem("userid");
+            var bidamtfromform = document.getElementById("bidamt").value;
+  event.preventDefault(); 
+  class BidderObject {
+  constructor(bid, bname, bemail, bphone) {
+    this.bid = bid;
+    this.bname = bname;
+    this.bemail=bemail;
+    this.bphone = bphone;
+    
+  }
+}
+    $.ajax({
+      url: "http://localhost:8080/productC/service/"+bidamtfromform+"/"+pidinAjax,
+      type: "GET",
+      dataType: "json",
+      success: function(response) {
+       
+         if(response ==1){
+            console.log("Done??");
+           userid = sessionStorage.getItem("userid");
+           console.log(userid);
+            $.ajax({
+                url: "http://localhost:8080/bidderC/bidder/"+userid,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log("running...");
+                    var row = new BidderObject(data.bid, data.bname, data.bemail, data.bphone);
+                    biddername=row.bname;
+                    console.log(biddername);
+                    console.log(pidinAjax);
+                                $.ajax({
+                                url: "http://localhost:8080/productC/service/uname/"+pidinAjax+"/"+biddername,
+                                type: "GET",
+                                dataType: "json",
+                                success: function(data) {
+                                    console.log("running ah?")
+                                    location.reload();
+                                    
+                                 },
+                                 error: function(xhr, status, error) {
+                                console.log(xhr.responseText);
+                                console.log("errorr?")
+                                 }
+                               });    
+
+                 },
+                 error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+                 }
+             });
+        }else{
+            console.log("Not Done??");
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+       }
+    });
+  });
+});
+
+</script>
+
+
+<h1 id="result1"></h1>
+<h1 id="result2"></h1>
+<h1 id="result3"></h1>
+<h1 id="result4"></h1>
+<h1 id="result5"></h1>
+<h1 id="result6"></h1>
+<h1 id="result7"></h1>
+<h1 id="result8"></h1>
+
+<div class="BidAmtForm" id="getALL">
+    <label for="bidamt">Enter your Bid amount</label>
+    <form id="BidamtForm" method="post">
+        <input type="text" id="bidamt" name="bidamt">
+        <input type="submit"  id="getAll">
+    </form>
+</div>
+</body>
+</html>
