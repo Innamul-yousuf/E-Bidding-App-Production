@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+       <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bidder Registration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+    body {
+      background-image: url('Asset 1.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      opacity: 0.9;
+  }
+  .form-control-icon {
+      position: relative;
+  }
+  .form-control-icon input {
+      padding-left: 35px;
+  }
+  .form-control-icon .icon {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+  }
+</style>
+</head>
+<body class="bg-gradient" style="background-image: radial-gradient(circle, #f1dfe6, #E56AB3);">
+    <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+    <h1 class="bg-dark text-light p-3 text-center fs-4">Product Registration</h1>
+
+
+<div class="container">
+  <div class="row justify-content-center mt-5 bg-transparent">
+      <div class="col-md-8 ">
+
+          <div class="card bg-transparent border border-light border-4 ">
+            <span class="border border-5 ">
+
+              <div class="card-header bg-transparent ">Product Registration Form</div>
+              <div class="card-body bg-transparent ">
+    <form id="bidder-form">
+      <div class="form-group form-control-icon">
+        <label for="bid">Bidder ID:</label>
+        <span class="icon"><i class="fas fa-id-badge "></i></span>
+        <input type="text" class="form-control" id="bid" name="bid" value="8886">
+    </div>
+     
+    <div class="form-group form-control-icon">
+      <label for="bname">Bidder Name:</label>
+      <span class="icon"><i class="fas fa-id-badge "></i></span>
+      <input type="text" class="form-control" id="bname" name="bname" value="Mohammed">
+  </div>
+
+  <div class="form-group form-control-icon">
+    <label for="bpass">Bidder Password:</label>
+    <span class="icon"><i class="fas fa-id-badge "></i></span>
+    <input type="text" class="form-control" id="bpass" name="bpass" value="Mohammed@01">
+</div>
+
+<div class="form-group form-control-icon">
+  <label for="bemail">Bidder Email:</label>
+  <span class="icon"><i class="fas fa-id-badge "></i></span>
+  <input type="text" class="form-control" id="bemail" name="bemail" value="innamulcollege@gmail.com">
+</div>
+ 
+<div class="form-group form-control-icon">
+  <label for="bphone">Bidder Phone:</label>
+  <span class="icon"><i class="fas fa-id-badge "></i></span>
+  <input type="text" class="form-control" id="bphone" name="bphone" value="9898988788@gmail.com">
+</div>
+        
+      
+<button class=" btn btn-danger col-5 btn-sm mx-auto border border-dark  col-md-8" type="submit">Register Bidder</button>
+</span>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+      
+      <script>
+      $(document).ready(function() {
+        $("#bidder-form").submit(function(event) {
+          // Prevent the form from submitting normally
+          event.preventDefault();
+      
+          // Get the form data
+          var formData = {
+            "bid": $("#bid").val(),
+            "bname": $("#bname").val(),
+            "bpass": $("#bpass").val(),
+            "bemail": $("#bemail").val(),
+            "bphone": $("#bphone").val()
+          };
+      
+          // Send the AJAX request
+          $.ajax({
+            url: 'http://localhost:8080/bidderC/bidder',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(data) {
+              console.log(data);
+              alert("Bidder Registered Successfuly");
+              alert("Note your Bidder id: "+data.bid+" and password: "+data.bpass);
+              document.location="http://localhost:8080/bidderPanel.html";
+            },
+            error: function(xhr, status, error) {
+              console.log(xhr.responseText);
+            }
+          });
+        });
+      });
+      </script>
+      
+</body>
+</html>
+
+</body>
+</html>

@@ -27,7 +27,7 @@
 <script type="text/javascript"
     src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
     
-    <h1 class="mx-auto text-center ">Bidder Login</h1>
+    <h1 class="mx-auto text-center ">Seller Login</h1>
 
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="mb-3 col-md-3    border border-3 border-dark rounded ">
@@ -38,7 +38,7 @@
 </p>
         <form class="text-center" id="bidderLogin">
             <label class="form-label" for="userid">
-                <div class="form-text text-start text-uppercase fs-5 fw-bold text-color-warning">Userid </div>
+                <div class="form-text text-start text-uppercase fs-5 fw-bold text-color-warning">Seller ID </div>
             </label>
             <input  class="form-control bg-light text-dark  text-black border border-dark border-12" type="text" id="userid" name="userid" value="8881"><br>
             <label class="form-label" for="password">
@@ -67,7 +67,7 @@
                     type:"POST",
                     dataType: 'json',
                     timeout: 500,
-                    url:"http://localhost:8080/bidderC/bidderLogin/"+userid+"/"+password,
+                    url:"http://localhost:8080/sellerC/bidderLogin/"+userid+"/"+password,
                     data:{
                         userid:userid,
                         password:password

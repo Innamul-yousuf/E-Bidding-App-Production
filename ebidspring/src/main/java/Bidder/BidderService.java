@@ -91,7 +91,7 @@ public class BidderService {
 				if (bidderPass.equals(pass)) {
 					System.out.println("Bidder Available");
 					return 1;
-				}else {
+				} else {
 					System.out.println("Wrong Password");
 
 					return 0;

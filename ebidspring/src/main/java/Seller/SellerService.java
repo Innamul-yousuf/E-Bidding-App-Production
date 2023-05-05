@@ -8,24 +8,28 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SellerService {
-	
+
 	@Autowired
 	private SellerRespository sellerRespository;
-	
+
 	public Seller createSeller(Seller seller) {
 		return sellerRespository.save(seller);
 	}
+
 	public Seller updateSeller(Seller seller) {
 		return sellerRespository.save(seller);
 	}
+
 	public void deleteSeller(Long id) {
 		sellerRespository.deleteById(id);
 	}
-	public List<Seller> getAllSellers(){
+
+	public List<Seller> getAllSellers() {
 		return sellerRespository.findAll();
 	}
-	public Seller getSellerById(Long id){
+
+	public Seller getSellerById(Long id) {
 		return sellerRespository.findById(id).get();
 	}
-	
+
 }

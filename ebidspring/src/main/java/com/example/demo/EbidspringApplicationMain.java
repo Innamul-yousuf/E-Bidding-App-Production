@@ -13,16 +13,19 @@ import Bidder.BidderService;
 import Product.ProductDAO;
 import Product.ProductRespository;
 import Product.ProductService;
+import ProductDetails.ProductDetails;
+import ProductDetails.ProductDetailsRespository;
 
 
 @SpringBootApplication(scanBasePackages={
-"Product","Seller","Bidder","Admin"})
+"Product","Seller","Bidder","Admin","ProductDetails"})
 public class EbidspringApplicationMain {
 	//public static ConfigurableApplicationContext proc;
 	public static ProductService pso;
 	public static ProductDAO pDAO;
 	public static ProductRespository prso;
 	public static AdminRespository ars;
+	public static ProductDetailsRespository pdr;
 	
 	public static void main(String[] args) {
 		ConfigurableApplicationContext pro=
@@ -35,6 +38,8 @@ public class EbidspringApplicationMain {
 		prso=productRespository;
 		AdminRespository adminRespository=(AdminRespository) pro.getBean("adminRespository");
 		ars=adminRespository;
+		ProductDetailsRespository productDetailsRespository=(ProductDetailsRespository) pro.getBean("productDetailsRespository");
+		pdr=productDetailsRespository;
 		//SpringApplication.run(Admin.EbidspringApplication.class, "--server.port=8085");
 
 		//SpringApplication.run(Bidder.EbidspringApplication.class, "--server.port=8081");

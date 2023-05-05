@@ -6,9 +6,152 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script src='main.js'></script>
 </head>
-<body>
+<style>
+        body {
+  background-image: url('bg for bidder panel-02.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+
+  background-position: center center;
+}
+
+.card-group {
+  margin-top: 20px;
+}
+
+.card {
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-text {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #333;
+}
+
+</style>
+<body class="img-fluid" style="background-image: radial-gradient(circle, #d58cff, #3e095c);">
+    <!-- <h1 id="result1"></h1>
+<h1 id="result2"></h1>
+<h1 id="result3"></h1>
+<h1 id="result4"></h1>
+<h1 id="result5"></h1>
+<h1 id="result6"></h1>
+<h1 id="result7"></h1>
+<h1 id="result8"></h1>
+<h1 id="result9"></h1>
+<h1 id="result10"></h1>
+<h1 id="result11"></h1>
+<h1 id="result12"></h1>
+<h1 id="result13"></h1> -->
+
+
+
+<!-- 
+<p id="result1"></p>
+<p id="result2"></p>
+<p id="result3"></p>
+<p id="result4"></p>
+<p id="result5"></p>
+<p id="result6"></p>
+<p id="result7"></p>
+<p id="result8"></p>
+<p id="result9"></p>
+<p id="result10"></p>
+<p id="result11"></p>
+<p id="result12"></p>
+<p id="result13"></p> -->
+
+<p>
+
+</p>
+<div class="d-inline position-relative">
+    <p class="position-absolute top-0 start-100  text-light d-inline-block" id="userNameInPanel"></p>
+   <h1 class="bg-dark text-light p-3 text-center  fs-4 mx-auto text-center">Bidding Panel</h1>
+</div>
+
+
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card text-center">
+        <img class="card-img-top mx-auto d-block" id="product-image" src="" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title" id="img-card">Product Details</h5>
+          <p id="costamt" class="card-text"></p>
+        </div>
+      </div>
+    </div>
+    <div class=" col-md-6 col d-flex flex-column justify-content-center align-items-center ">
+      <div class="BidAmtForm border border-3 border-dark rounded align-items-center col-md-10" id="getALL">
+        <form class="text-center" id="BidamtForm" method="post">
+         <h1 class="text-light" id="BidamtInForm"></h1>
+         <h2 class="text-light"  id="BidderName"></h2>
+
+
+          <div class="form-group">
+            <label class="form-label text-light " for="bidamt">Enter your Bid amount</label>
+            <input class="form-control  col-8 mx-auto bg-light text-dark bg-secondary border border-dark border-2" type="text" class="form-control" id="bidamt" name="bidamt">
+          </div>
+          <button class=" btn btn-light col-5 btn-sm mx-auto border border-dark"  type="submit" class="btn btn-primary" id="getAll">Submit</button>
+       <p>
+
+       </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<h1> </h1>
+
+<div class="card-group ">
+  <div class="card border-light border-5 bg-transparent mb-3">
+    <div class="card-body text-bg-light rounded-1">
+      <p id="id1" class="card-text text-light"></p>
+      <p id="id2" class="card-text text-light"></p>
+      <p id="id3" class="card-text text-light"></p>
+      <p id="id4" class="card-text text-light"></p>
+    </div>
+  </div>
+  <div class="card border-light border-5 bg-transparent mb-3">
+    <div class="card-body text-bg-light rounded-1">
+      <p id="id5" class="card-text text-light"></p>
+      <p id="id6" class="card-text text-light"></p>
+      <p id="id7" class="card-text text-light"></p>
+      <p id="id8" class="card-text text-light"></p>
+      <p id="id10" class="card-text text-light"></p>
+    </div>
+  </div>
+  <div class="card border-light border-5 bg-transparent mb-3">
+    <div class="card-body text-bg-light rounded-1">
+      <p id="id9" class="card-text text-light"></p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
     <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -30,8 +173,15 @@ $(document).ready(function() {
     this.pbuyer=pbuyer;
   }
 }
+
+
+var pnameFromSession = sessionStorage.getItem("pid");
+
+
 var pidFromSession = sessionStorage.getItem("pid");
 console.log(pidFromSession);
+setInterval(function() {
+
     $.ajax({
         
         url: 'http://localhost:8080/productC/product/'+pidFromSession,
@@ -41,18 +191,46 @@ console.log(pidFromSession);
         success: function(data) {
             var startdates=data.starttime.substring(0, 10);
             var enddates=data.endtime.substring(0, 10);
-                   
-            var row = new ProductObject(data.pid, data.pname, data.pcost, data.pseller, data.startdate, data.enddate, data.sold, data.pbuyer);
+
+            var row = new ProductObject(data.pid, data.pname,data.pseller, data.pcost,  data.startdate, data.enddate, data.sold, data.pbuyer);
           
-           document.getElementById("result1").innerHTML = row.pid;
-           document.getElementById("result2").innerHTML = row.pname;
-           document.getElementById("result3").innerHTML = row.pcost;
-           document.getElementById("result4").innerHTML = row.pseller;
-           document.getElementById("result5").innerHTML = startdates;
-           document.getElementById("result6").innerHTML = enddates;
-           document.getElementById("result7").innerHTML = row.sold;
-           document.getElementById("result8").innerHTML = row.pbuyer;
+          //  document.getElementById("result1").innerHTML = "Product ID: "+row.pid;
+          //  document.getElementById("result2").innerHTML = "Name: "+row.pname;
+          //  document.getElementById("result3").innerHTML = "Product Seller: "+row.pseller;
+          //  document.getElementById("result4").innerHTML = "Produtc Bidding Amount"+row.pcost;
+          //  document.getElementById("result5").innerHTML = "Bidding Start time "+startdates;
+          //  document.getElementById("result6").innerHTML = "Bidding End time "+enddates;
+          //  document.getElementById("result7").innerHTML = "Available "+row.sold;
+          //  document.getElementById("result8").innerHTML = "Buyer Name "+row.pbuyer;
+
+
+
+           document.getElementById("id1").innerHTML = "Product ID: "+row.pid;
+
+
+           document.getElementById("img-card").innerHTML =row.pname;
+           document.getElementById("costamt").innerHTML ="Bidded Amount Rs. "+row.pcost;
+           document.getElementById("BidamtInForm").innerHTML ="Bidded Amount Rs. "+row.pcost;
+
+           BidamtInForm
+           document.getElementById("id2").innerHTML = "Product Seller: "+row.pseller;
+
+           document.getElementById("id3").innerHTML = "Produtc Bidding Amount"+row.pcost;
+
+           document.getElementById("id5").innerHTML = "Bidding Start time "+startdates;
+
+           document.getElementById("id6").innerHTML = "Bidding End time "+enddates;
+
+
+           document.getElementById("id7").innerHTML = "Available "+row.sold;
+
+
+           document.getElementById("id8").innerHTML = "Buyer Name: "+row.pbuyer;
+           document.getElementById("BidderName").innerHTML ="Bidded By "+row.pbuyer;
+
            pidinAjax=row.pid;
+
+          
            var username = sessionStorage.getItem("userid");
            var password = sessionStorage.getItem("password");
             console.log(username, password);
@@ -61,7 +239,67 @@ console.log(pidFromSession);
             console.log(xhr.responseText);
         }
     });
+}, 10);
+
+
+    class ProductDetailsObject {
+  constructor(pid, pname, pseller,pcost, sold, pbuyer,color,model,img_link,prodesc) {
+    this.pid = pid;
+    this.pname = pname;
+    this.pcost=pcost;
+    this.pseller = pseller;
+    this.sold = sold;
+    this.pbuyer=pbuyer;
+    this.color = color;
+    this.model = model;
+    this.img_link=img_link;
+    this.prodesc=prodesc;
+    
+  }
+}
+
+setInterval(function() {
+
+$(document).ready(function() {
+    var pidFromSession = sessionStorage.getItem("pid");
+
+$.ajax({
+    
+    url: 'http://localhost:8080/productDetailsC/product/'+pidFromSession,
+    type: 'GET',
+    dataType: 'json',
+   
+    success: function(data) {
+
+        var row = new ProductDetailsObject(data.pid, data.pname, data.pseller, data.pcost, data.sold, data.pbuyer, data.color, data.model, data.img_link, data.prodesc);
+        
+
+      //  document.getElementById("result9").innerHTML =  "Color: "+row.color;
+      //  document.getElementById("result9").innerHTML =  "Color: "+row.color;
+      //  document.getElementById("result10").innerHTML =  "Model"+row.model;
+      //  document.getElementById("result11").innerHTML = row.sold;
+      //  document.getElementById("result12").innerHTML =  "Image Link"+row.img_link;
+      //  document.getElementById("result13").innerHTML =  "Product Description"+row.prodesc;
+
+
+
+       document.getElementById("id4").innerHTML =  "Color: "+row.color;
+
+       
+
+       document.getElementById("id10").innerHTML =  "Model"+row.model;
+
+       document.getElementById("id9").innerHTML =  "Product Description"+row.prodesc;
+
+     $('#product-image').attr('src', row.img_link);
+    },
+    error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+    }
 });
+});
+});
+}, 5000);
 
    
 
@@ -82,6 +320,8 @@ console.log(pidFromSession);
     
   }
 }
+
+
     $.ajax({
       url: "http://localhost:8080/productC/service/"+bidamtfromform+"/"+pidinAjax,
       type: "GET",
@@ -112,8 +352,7 @@ console.log(pidFromSession);
                                     
                                  },
                                  error: function(xhr, status, error) {
-                                console.log(xhr.responseText);
-                                console.log("errorr?")
+                                 console.log("errorr?")
                                  }
                                });    
 
@@ -133,24 +372,11 @@ console.log(pidFromSession);
   });
 });
 
+
 </script>
 
 
-<h1 id="result1"></h1>
-<h1 id="result2"></h1>
-<h1 id="result3"></h1>
-<h1 id="result4"></h1>
-<h1 id="result5"></h1>
-<h1 id="result6"></h1>
-<h1 id="result7"></h1>
-<h1 id="result8"></h1>
 
-<div class="BidAmtForm" id="getALL">
-    <label for="bidamt">Enter your Bid amount</label>
-    <form id="BidamtForm" method="post">
-        <input type="text" id="bidamt" name="bidamt">
-        <input type="submit"  id="getAll">
-    </form>
-</div>
+
 </body>
 </html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Registration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+          background-image: url('Asset 1.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          opacity: 0.9;
+      }
+      .form-control-icon {
+          position: relative;
+      }
+      .form-control-icon input {
+          padding-left: 35px;
+      }
+      .form-control-icon .icon {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          width: 20px;
+          height: 20px;
+      }
+  </style>
+</head>
+<body  class="bg-gradient" style="background-image: radial-gradient(circle, #f1dfe6, #E56AB3);">
+  <h1 class="bg-dark text-light p-3 text-center fs-4">Product Registration</h1>
+
+
+<div class="container">
+  <div class="row justify-content-center mt-5 bg-transparent">
+      <div class="col-md-8 ">
+
+          <div class="card bg-transparent border border-light border-4 ">
+            <span class="border border-5 ">
+
+              <div class="card-header bg-transparent ">Product Registration Form</div>
+              <div class="card-body bg-transparent ">
+                  <form id="product-form">
+                      <div class="form-group form-control-icon">
+                          <label for="pid">Product ID:</label>
+                          <span class="icon"><i class="fas fa-id-badge "></i></span>
+                          <input type="text" class="form-control" id="pid" name="pid" value="1115">
+                      </div>
+                     
+                      <div class="form-group form-control-icon">
+                          <label for="pcost">Product Minimum Cost:</label>
+                          <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                          <input type="text" class="form-control" id="pcost" name="pcost" value="30000">
+                      </div>
+                      <div class="form-group form-control-icon">
+                          <label for="pname">Product Name:</label>
+                          <span class="icon"><i class="fas fa-box"></i></span>
+                          <input type="text" class="form-control" id="pname" name="pname" value="Iphone">
+                      </div>
+                      <div class="form-group form-control-icon">
+                          <label for="pseller">Product Seller:</label>
+                          <span class="icon"><i class="fas fa-box"></i></span>
+                          <input type="text" class="form-control" id="pseller" name="pseller" value="Ravi">
+                      </div>
+                 
+            
+                    <div class="form-group form-control-icon">
+                      <label for="prodesc">Product Description: </label>
+                      <span class="icon"><i class="fas fa-box"></i></span>
+                      <textarea class="form-control form-control-lg"  rows="3" class="form-control" id="prodesc" name="prodesc"></textarea>
+                  </div>
+                  <div class="form-group form-control-icon">
+                    <label for="color">Product color: </label>
+                    <span class="icon"><i class="fas fa-box"></i></span>
+                    <input type="text" class="form-control" id="color" name="color">
+                </div>
+                <div class="form-group form-control-icon">
+                  <label for="img_link">Product img_link: </label>
+                  <span class="icon"><i class="fas fa-box"></i></span>
+                  <input type="text" class="form-control" id="img_link" name="img_link">
+              </div>
+              <div class="form-group form-control-icon">
+                <label for="model">Product model: </label>
+                <span class="icon"><i class="fas fa-box"></i></span>
+                <input type="text" class="form-control" id="model" name="model">
+            </div>
+            <div class="form-group form-control-icon">
+              <label for="starttime">Bidding Start Time</label>
+              <span class="icon"><i class="fas fa-box"></i></span>
+              <input type="date" class="form-control" id="starttime" name="starttime">
+          </div>
+          <div class="form-group form-control-icon">
+            <label for="endtime">Bidding End Time:</label>
+            <span class="icon"><i class="fas fa-clock"></i></span>
+            <input type="date" class="form-control" id="endtime" name="endtime">
+        </div>
+            <button class=" btn btn-danger col-5 btn-sm mx-auto border border-dark  col-md-8" type="submit">Register Bidding</button>
+          </span>
+
+          </form>
+</div>
+
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
+ 
+      
+      <script>
+      $(document).ready(function() {
+        $("#product-form").submit(function(event) {
+          // Prevent the form from submitting normally
+          event.preventDefault();
+      
+          // Get the form data
+          var formData = {
+            "pid": $("#pid").val(),
+            "endtime": $("#endtime").val(),
+            "pbuyer":' ',
+            "pcost": $("#pcost").val(),
+            "pname": $("#pname").val(),
+            "pseller": $("#pseller").val(),
+            "sold":0,
+            "starttime": $("#starttime").val(),
+          };
+          var formData2forProductdetais = {
+            "pid": $("#pid").val(),
+            "prodesc": $("#prodesc").val(),
+            "color": $("#color").val(),
+            "img_link": $("#img_link").val(),
+            "model": $("#model").val(),
+
+            "pbuyer": $("#pbuyer").val(),
+            "pcost": $("#pcost").val(),
+            "pname": $("#pname").val(),
+            "pseller": $("#pseller").val(),
+            "sold":0,
+          };
+      
+          // Send the AJAX request
+          $.ajax({
+            url: 'http://localhost:8080/productC/product',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(data) {
+              console.log(data);
+              // alert("Product  Registered Successfuly");
+              // alert("Note your Product id: "+data.pid);
+              //document.location="http://localhost:8080/sellerPanel.html";
+            },
+            error: function(xhr, status, error) {
+              console.log(xhr.responseText);
+            }
+          });
+     
+      
+      $.ajax({
+        url: 'http://localhost:8080/productDetailsC/product',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData2forProductdetais),
+        success: function(data) {
+          console.log(data);
+          alert("Product  Registered Successfuly");
+          alert("Note your Product id: "+data.pid);
+          //document.location="http://localhost:8080/sellerPanel.html";
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+        }
+      });
+    });
+      });
+
+  </script>
+  
+</body>
+</html>
+
+</body>
+</html>

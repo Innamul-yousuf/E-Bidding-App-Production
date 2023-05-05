@@ -24,7 +24,7 @@ import Bidder.BidderService;
 public class ProductService {
 
 	@Autowired
-	public ProductRespository productRespository=EbidspringApplicationMain.prso;
+	public ProductRespository productRespository = EbidspringApplicationMain.prso;
 //	public ProductService( ProductRespository productRespository) {
 //		this.productRespository = productRespository;
 //	}
@@ -41,66 +41,72 @@ public class ProductService {
 //	public String[] args;
 //	public ConfigurableApplicationContext procp=pro.getProMain(args);
 	@Autowired
-	public ProductDAO productDAO=com.example.demo.EbidspringApplicationMain.pDAO;
+	public ProductDAO productDAO = com.example.demo.EbidspringApplicationMain.pDAO;
+
 //	public ProductService(ProductDAO productDAO) {
 //		this.productDAO=productDAO;
 //	}
 	public Product createProduct(Product product) {
 		return productRespository.save(product);
 	}
+
 	public Product updateProduct(Product product) {
 		return productRespository.save(product);
 	}
+
 	public void deleteProduct(Long id) {
 		productRespository.deleteById(id);
 	}
-	public List<Product> getAllProducts(){
+
+	public List<Product> getAllProducts() {
 		return productRespository.findAll();
 	}
-	public Product getProductById(Long id){
+
+	public Product getProductById(Long id) {
 		return productRespository.findById(id).get();
 	}
-public void updateSoldTo1(Long productId) {
-	productDAO.updateProductFlagTo1(productId);
-	}
-public void updateSoldTo0(Long productId) {
-	productDAO.updateProductFlagTo0(productId);
+
+	public void updateSoldTo1(Long productId) {
+		productDAO.updateProductFlagTo1(productId);
 	}
 
-public void updatePcostByPid(Long pid, Long pcost) {
-	
-	productDAO.updateProductBidAmt(pid, pcost);
-}
-public void updateBidderName(Long productId,String bname) {
-	productDAO.updateBidderName(productId, bname);
-	
-}
+	public void updateSoldTo0(Long productId) {
+		productDAO.updateProductFlagTo0(productId);
+	}
 
-public String checkValidBidAndUpdate(Long bid_amt, Long pid) {
+	public void updatePcostByPid(Long pid, Long pcost) {
 
-	ProductService productService = new ProductService();
-	Product product =new Product();
+		productDAO.updateProductBidAmt(pid, pcost);
+	}
+
+	public void updateBidderName(Long productId, String bname) {
+		productDAO.updateBidderName(productId, bname);
+
+	}
+
+	public String checkValidBidAndUpdate(Long bid_amt, Long pid) {
+
+		ProductService productService = new ProductService();
+		Product product = new Product();
 //	CheckValidBid cv=new CheckValidBid(ProductRespository productRespository);
-	product = productRespository.findById(pid).get();
-	Long currentCost = product.getPcost();
-	
-	if (currentCost < bid_amt) {
-	
-			if(product.getSold()==1) {
+		product = productRespository.findById(pid).get();
+		Long currentCost = product.getPcost();
+
+		if (currentCost < bid_amt) {
+
+			if (product.getSold() == 1) {
 				productService.updatePcostByPid(pid, bid_amt);
 				return "Done";
-			}
-			else {
+			} else {
 				System.out.println("Bidding Time started or Ended!");
 				return "Not Done";
 			}
-		
-}
-	 else {
-		System.out.println("Low Bid Amount!");
-		return "Not Done";
+
+		} else {
+			System.out.println("Low Bid Amount!");
+			return "Not Done";
+		}
+
 	}
-	
-}
 
 }

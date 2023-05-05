@@ -5,24 +5,49 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Admin Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
+    <style>
+       body {
+  background-image: url('Asset 8.png');
+  background-repeat: no-repeat;
+  background-size: 110%;
+
+  background-position: center center;
+}
+
+    </style>
+       
 </head>
-<body>
-    <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript"
-    src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
-        
-    <div id="AdminLoginForm">
-        <form id="adminLogin">
-            <label for="userid">Userid</label>
-            <input type="text" id="userid" name="userid" value="5555"><br>
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password"value="Innamul@Admin1"><br>
-            <button type="submit">Login</button>
+<body class="img-fluid" >
+
+   <h1>
+    
+   </h1>
+    <h1 class="mx-auto text-center ">Admin Login</h1>
+    <!--<img class="img-fluid justify-content-center align-items-center d-block" src="1.png">-->
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+
+    <div class="mb-3 col-md-3    border border-3 border-dark rounded "  >
+        <p> </p>    
+        <form class="text-center" id="adminLogin"  > 
+            <label  class="form-label" for="userid">
+                <div class="form-text text-start text-uppercase fs-5 fw-bold text-color-warning">Userid </div></label>
+            <input class="form-control bg-light text-dark  text-black border border-dark border-12  " type="text" id="userid" name="userid" value="5555"><br>
+           
+            <label  class="form-label"for="password">Password</label>
+            <input class="form-control bg-light text-dark bg-secondary border border-dark border-2" type="text" id="password" name="password"value="Innamul@Admin1"><br>
+      
+            <button class=" btn btn-light col-5 btn-sm mx-auto border border-dark" type="submit">Login</button>
+            <p> </p>
         </form>
-    </div>
+   
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
 
     <script>
         $(document).ready(function(){

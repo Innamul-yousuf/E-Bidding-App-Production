@@ -12,6 +12,9 @@ public class EbidspringApplicationBidder {
 		SpringApplication.run(EbidspringApplicationBidder.class, args);
 		BidderRespository bidderRespository=(BidderRespository) bsa.getBean("bidderRespository");
 		br=bidderRespository;
+		BidderService bs=new BidderService();
+		BidderController bc=new BidderController(bs);
+		bc.getCountdown();
 	}
 
 }

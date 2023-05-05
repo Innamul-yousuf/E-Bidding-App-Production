@@ -5,33 +5,51 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
-<body>
-    Bidder Panel
+<style>
+       body {
+  background-image: url('bg1 for bidderpanel1-01-01.png');
+  background-repeat: no-repeat;
+  background-size: 102%;
+
+  background-position: center center;
+}
+</style>
+<body class="img-fluid">
+
     <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
     src="http://cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>
        
     
-    <h1>Bidding Product Information</h1>
-    <table id="bidinfo">
-        <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Seller ID</th>
-                <th>Bid Start date</th>
-                <th>Bid End date</th>
-                <th>Start Bid</th>
-                <th>End Bid</th>
+    <h1 class="bg-dark text-light p-3 text-center fs-4">Bidding Product Information</h1>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="container mx-auto text-center ">
+    
+    <table class="table table-striped table-bordered  table-sm text-light"  id="bidinfo">
+        <thead class="thead-light ">
+            <tr class="align-middle text-center">
+                <th class="text-center">Product ID</th>
+                <th class="text-center">Product Name</th>
+                <th class="text-center">Seller ID</th>
+                <th class="text-center">Bid Start date</th>
+                <th class="text-center">Bid End date</th>
+                <th class="text-center">Start Bid</th>
+                <th class="text-center">End Bid</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="bidinfo">
+
+        </tbody>
 
     </table>
+</div>
+</div>
+
     <script>
 
 $(document).ready(function() {
@@ -44,7 +62,7 @@ $(document).ready(function() {
                  $.each(data, function(index, item) {
                    var startdate=item.starttime.substring(0, 10);
                    var enddate=item.endtime.substring(0, 10);
-                    var row=$("<tr><td>"+item.pid+"</td><td>"+item.pname+"</td><td>"+item.pseller+"</td><td>"+startdate+"</td><td>"+enddate+"<td><button class='join-btn' data-pid='" + item.pid + "'>Join</button></td><td><button class='leave-btn' data-pid='" + item.pid + "'>Leave</button></td><tr>");
+                    var row=$("<tr><td>"+item.pid+"</td><td>"+item.pname+"</td><td>"+item.pseller+"</td><td>"+startdate+"</td><td>"+enddate+"<td><button class='join-btn btn btn-success col-9 mx-auto btn-sm' data-pid='" + item.pid + "'>Join</button></td><td><button class='end-btn btn btn-danger col-9 btn-sm mx-auto' data-pid='" + item.pid + "'>Leave</button></td><tr>");
                         $("#bidinfo tbody").append(row);
                         var sold = $("<div class='soldv' data-sold='" + item.sold + "'></div>");
     row.append(sold);
@@ -67,7 +85,7 @@ console.log(soldi);
         document.location=url;
     }
     else{
-        var url2 = "http://localhost:8080/ProductBidding/errorPage";
+        var url2 = "http://localhost:8080/errorPage.html";
         document.location=url2;
     }
     
@@ -95,6 +113,8 @@ $(".end-btn").click(function (event) {
       }
         });
     });
+
+    
     </script>
     
     
