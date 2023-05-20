@@ -15,6 +15,7 @@ import Product.ProductRespository;
 import Product.ProductService;
 import ProductDetails.ProductDetails;
 import ProductDetails.ProductDetailsRespository;
+import ProductDetails.ProductServiceDAO;
 
 
 @SpringBootApplication(scanBasePackages={
@@ -26,7 +27,7 @@ public class EbidspringApplicationMain {
 	public static ProductRespository prso;
 	public static AdminRespository ars;
 	public static ProductDetailsRespository pdr;
-	
+	public static ProductServiceDAO psdao;
 	public static void main(String[] args) {
 		ConfigurableApplicationContext pro=
 		SpringApplication.run(EbidspringApplicationMain.class, args);
@@ -40,6 +41,8 @@ public class EbidspringApplicationMain {
 		ars=adminRespository;
 		ProductDetailsRespository productDetailsRespository=(ProductDetailsRespository) pro.getBean("productDetailsRespository");
 		pdr=productDetailsRespository;
+		ProductServiceDAO psdaoi=(ProductServiceDAO) pro.getBean("productServiceDAO");
+		psdao=psdaoi;
 		//SpringApplication.run(Admin.EbidspringApplication.class, "--server.port=8085");
 
 		//SpringApplication.run(Bidder.EbidspringApplication.class, "--server.port=8081");

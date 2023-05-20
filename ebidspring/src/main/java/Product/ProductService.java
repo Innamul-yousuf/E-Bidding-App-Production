@@ -1,7 +1,7 @@
 package Product;
 
 import java.sql.Connection;
-
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.EbidspringApplicationMain;
 
 import Bidder.Bidder;
-import Bidder.BidderRespository;
 import Bidder.BidderService;
 
 @Service
@@ -107,6 +106,14 @@ public class ProductService {
 			return "Not Done";
 		}
 
+	}
+	public void updateStartDate(long pid,Date sdate) {
+		
+		productDAO.updateProductStartTime(pid, sdate);
+	}
+	public void updateEndDate(long pid,Date edate) {
+		
+		productDAO.updateProductEndTime(pid, edate);
 	}
 
 }

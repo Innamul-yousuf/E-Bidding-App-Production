@@ -24,6 +24,7 @@ public class ProductDetails {
 	private String model;
 	private String img_link;
 	private String Prodesc;
+	private int flag;
 	
 	public String getColor() {
 		return color;
@@ -87,5 +88,11 @@ public class ProductDetails {
 	public void setSold(short sold) {
 		this.sold = sold;
 	}
-	
+
+	public int getFlag() {
+		return flag;
+	}
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 }

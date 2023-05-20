@@ -1,5 +1,6 @@
 package Product;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,17 @@ public class ProductController {
 		productService.updateBidderName(pid, bname);
 		return 6;
 	}
+	
+	@PostMapping("service/updateStartTime/{pid}/{sdate}")
+	public void updateStartTime(@PathVariable Long pid, @PathVariable("sdate") Date sdate) {
+		productService.updateStartDate(pid, sdate);
+	}
+	
+	@PostMapping("service/updateEndTime/{pid}/{edate}")
+	public void updateEndTime(@PathVariable Long pid, @PathVariable("edate") Date edate) {
+		productService.updateEndDate(pid, edate);
+	}
+	
 //	@GetMapping("/service/getname/{bid}")
 //	public void getBidderName(@PathVariable Long bid) {
 //		productService.getBidderName(bid);

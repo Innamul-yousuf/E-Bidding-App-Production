@@ -48,43 +48,13 @@
 
 </style>
 <body class="img-fluid" style="background-image: radial-gradient(circle, #d58cff, #3e095c);">
-    <!-- <h1 id="result1"></h1>
-<h1 id="result2"></h1>
-<h1 id="result3"></h1>
-<h1 id="result4"></h1>
-<h1 id="result5"></h1>
-<h1 id="result6"></h1>
-<h1 id="result7"></h1>
-<h1 id="result8"></h1>
-<h1 id="result9"></h1>
-<h1 id="result10"></h1>
-<h1 id="result11"></h1>
-<h1 id="result12"></h1>
-<h1 id="result13"></h1> -->
-
-
-
-<!-- 
-<p id="result1"></p>
-<p id="result2"></p>
-<p id="result3"></p>
-<p id="result4"></p>
-<p id="result5"></p>
-<p id="result6"></p>
-<p id="result7"></p>
-<p id="result8"></p>
-<p id="result9"></p>
-<p id="result10"></p>
-<p id="result11"></p>
-<p id="result12"></p>
-<p id="result13"></p> -->
-
+ 
 <p>
 
 </p>
 <div class="d-inline position-relative">
     <p class="position-absolute top-0 start-100  text-light d-inline-block" id="userNameInPanel"></p>
-   <h1 class="bg-dark text-light p-3 text-center  fs-4 mx-auto text-center">Bidding Panel</h1>
+   <h1 class="bg-dark text-light p-3 text-center  fs-4 mx-auto text-center">Admin Product Panel</h1>
 </div>
 
 
@@ -101,25 +71,49 @@
         </div>
       </div>
     </div>
+    
     <div class=" col-md-6 col d-flex flex-column justify-content-center align-items-center ">
       <div class="BidAmtForm border border-3 border-dark rounded align-items-center col-md-10" id="getALL">
-        <form class="text-center" id="BidamtForm" method="post">
+        <form class="text-center" id="BidamtForm" >
          <h1 class="text-light" id="BidamtInForm"></h1>
          <h2 class="text-light"  id="BidderName"></h2>
 
-
+         <div class="row">
+          <div class="col-md-6">
           <div class="form-group">
-            <label class="form-label text-light " for="bidamt">Enter your Bid amount</label>
-            <input class="form-control  col-8 mx-auto bg-light text-dark bg-secondary border border-dark border-2" type="text" class="form-control" id="bidamt" name="bidamt">
+            <label class="form-label text-light " for="stime">Enter Bidding Start Time:</label>
+          
+            <input class="form-control  col-8 mx-auto bg-light text-dark bg-secondary border border-dark border-2" type="date" class="form-control" id="stime" name="stime">
           </div>
+      
+        <div class="col-md-12">
+         
           <button class=" btn btn-light col-5 btn-sm mx-auto border border-dark"  type="submit" class="btn btn-primary" id="getAll">Submit</button>
-       <p>
+        </div>
+        </div>
+        
+        
+          <p>
 
        </p>
         </form>
-      </div>
+        <form class="text-center" id="EndTime" >
+                  <div class="form-group">
+             <label class="form-label text-light " for="etime">Enter Bidding End Time:</label>
+             <input class="form-control  col-8 mx-auto bg-light text-dark bg-secondary border border-dark border-2" type="date" class="form-control" id="etime" name="etime">
+           </div>
+           <button class=" btn btn-light col-5 btn-sm mx-auto border border-dark"  type="submit" class="btn btn-primary" id="getAll">Submit</button>
+        <p>
+ 
+        </p>
+         </form>
+        
+   
+    </div>
+    </div>
     </div>
   </div>
+
 </div>
 <h1> </h1>
 
@@ -160,8 +154,6 @@
         <script>
         var pidinAjax;
             var biddername;
-          var stime;
-var etime;
 $(document).ready(function() {
     class ProductObject {
   constructor(pid, pname, pseller,pcost, startdate, enddate, sold, pbuyer) {
@@ -183,7 +175,6 @@ var pnameFromSession = sessionStorage.getItem("pid");
 var pidFromSession = sessionStorage.getItem("pid");
 console.log(pidFromSession);
 
-setInterval(function() {
 
     $.ajax({
         
@@ -197,18 +188,7 @@ setInterval(function() {
 
             var row = new ProductObject(data.pid, data.pname,data.pseller, data.pcost,  data.startdate, data.enddate, data.sold, data.pbuyer);
           
-          //  document.getElementById("result1").innerHTML = "Product ID: "+row.pid;
-          //  document.getElementById("result2").innerHTML = "Name: "+row.pname;
-          //  document.getElementById("result3").innerHTML = "Product Seller: "+row.pseller;
-          //  document.getElementById("result4").innerHTML = "Produtc Bidding Amount"+row.pcost;
-          //  document.getElementById("result5").innerHTML = "Bidding Start time "+startdates;
-          //  document.getElementById("result6").innerHTML = "Bidding End time "+enddates;
-          //  document.getElementById("result7").innerHTML = "Available "+row.sold;
-          //  document.getElementById("result8").innerHTML = "Buyer Name "+row.pbuyer;
 
-
-stime=data.startdate;
-etime=data.enddate;
            document.getElementById("id1").innerHTML = "Product ID: "+row.pid;
 
 
@@ -243,7 +223,7 @@ etime=data.enddate;
             console.log(xhr.responseText);
         }
     });
-}, 10);
+
 
 
     class ProductDetailsObject {
@@ -262,11 +242,9 @@ etime=data.enddate;
   }
 }
 
-setInterval(function() {
-
 $(document).ready(function() {
     var pidFromSession = sessionStorage.getItem("pid");
-
+console.log(pidFromSession);
 $.ajax({
     
     url: 'http://localhost:8080/productDetailsC/product/'+pidFromSession,
@@ -277,13 +255,6 @@ $.ajax({
 
         var row = new ProductDetailsObject(data.pid, data.pname, data.pseller, data.pcost, data.sold, data.pbuyer, data.color, data.model, data.img_link, data.prodesc);
         
-
-      //  document.getElementById("result9").innerHTML =  "Color: "+row.color;
-      //  document.getElementById("result9").innerHTML =  "Color: "+row.color;
-      //  document.getElementById("result10").innerHTML =  "Model"+row.model;
-      //  document.getElementById("result11").innerHTML = row.sold;
-      //  document.getElementById("result12").innerHTML =  "Image Link"+row.img_link;
-      //  document.getElementById("result13").innerHTML =  "Product Description"+row.prodesc;
 
 
 
@@ -303,92 +274,88 @@ $.ajax({
 });
 });
 });
-}, 5000);
+
 
    
 
     
 
-    $(document).ready(function() {
-        $('#BidamtForm').submit(function(event) {
-            var formData = $(this).serialize();
-            var userid = sessionStorage.getItem("userid");
-            var bidamtfromform = document.getElementById("bidamt").value;
-  event.preventDefault(); 
-  class BidderObject {
-  constructor(bid, bname, bemail, bphone) {
-    this.bid = bid;
-    this.bname = bname;
-    this.bemail=bemail;
-    this.bphone = bphone;
+//     $(document).ready(function() {
+//         $('#BidamtForm').submit(function(event) {
+
+//             var formData = $(this).serialize();
+//             var userid = sessionStorage.getItem("userid");
+//             var bidamtfromform = document.getElementById("bidamt").value;
+//   event.preventDefault(); 
+//   class BidderObject {
+//   constructor(bid, bname, bemail, bphone) {
+//     this.bid = bid;
+//     this.bname = bname;
+//     this.bemail=bemail;
+//     this.bphone = bphone;
     
-  }
-}
+//   }
+// }
 
+$(document).ready(function(){
+$("#BidamtForm").submit(function(event){
+  
+  event.preventDefault();
+  var sdate=$("#stime").val();
+  
+    //   console.log(sdate);
+    //   sdatedup={ ...sdate};
+    //   sdy=sdate.getDay()+1;
+  
+    //   sdateu=new Date(sdate);
+    // sday=sdateu.getDay+1;
+    // sdateuu=sdateu.setDay
+  $.ajax({
 
-    $.ajax({
-      url: "http://localhost:8080/productC/service/"+bidamtfromform+"/"+pidinAjax,
-      type: "GET",
+      url: "http://localhost:8080/productC/service/updateStartTime/"+pidinAjax+"/"+sdate,
+      
+      type: "POST",
       dataType: "json",
       success: function(response) {
-       
-         if(response ==1){
-            console.log("Done??");
-           userid = sessionStorage.getItem("userid");
-           console.log(userid);
-           nowDate=new Date();
-           console.log(nowDate);
-           sdate=new Date(stime);
-           if(nowDate >= stime && nowDate <=etime){
-            $.ajax({
-                url: "http://localhost:8080/bidderC/bidder/"+userid,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    console.log("running...");
-                    var row = new BidderObject(data.bid, data.bname, data.bemail, data.bphone);
-                    biddername=row.bname;
-                    console.log(biddername);
-                    console.log(pidinAjax);
-                                $.ajax({
-                                url: "http://localhost:8080/productC/service/uname/"+pidinAjax+"/"+biddername,
-                                type: "GET",
-                                dataType: "json",
-                                success: function(data) {
-                                    console.log("running ah?")
-                                    location.reload();
-                                    
-                                 },
-                                 error: function(xhr, status, error) {
-                                 console.log("errorr?")
-                                 }
-                               });    
-
-                 },
-                 error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                 }
-             });
-        }else{
-            console.log("Not Done??");
-        }
-      }
-      else{
-        console.log("Date error");
-      }
-      }
-      
-      ,
-      
+        alert(url);
+        location.reload();
+        alert("Bidding start time updated");
+      },
       error: function(xhr, status, error) {
+  location.reload();
         console.log(xhr.responseText);
        }
-       
     });
   });
 });
 
+$(document).ready(function(){
+$("#EndTime").submit(function(event){
+  
+  event.preventDefault();
+  var edate=$("#etime").val();
+  
+  $.ajax({
 
+      url: "http://localhost:8080/productC/service/updateEndTime/"+pidinAjax+"/"+edate,
+      
+      type: "POST",
+      dataType: "json",
+      success: function(response) {
+        alert(url);
+        location.reload();
+        alert("Bidding end time updated");
+      },
+      error: function(xhr, status, error) {
+  location.reload();
+        console.log(xhr.responseText);
+       }
+    });
+  });
+});
+  //   });
+
+  // });
 </script>
 
 

@@ -1,9 +1,8 @@
-package Product;
+package ProductDetails;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.sql.DataSource;
 
@@ -16,25 +15,25 @@ import Bidder.Bidder;
 import Bidder.BidderService;
 
 @Repository
-public class ProductDAO {
+public class ProductServiceDAO {
 	@Autowired
 	public DataSource dataSource;
 
 //BidderService bidderService=EbidspringApplication.bs;
 
-	public ProductDAO() {
-
+	public ProductServiceDAO() {
+		// TODO Auto-generated constructor stub
 	}
-
-	public void updateProductFlagTo1(Long productId) {
-		String sql = "UPDATE product SET sold=1 WHERE pid = ?";
+	public void updateSold(int i,long pid) {
+		String sql = "UPDATE product_details SET sold=? WHERE pid = ?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setLong(1, productId);
+			ps.setInt(1, i);
+			ps.setLong(2, pid);
 			int count = ps.executeUpdate();
 
 			if (count == 1) {
 				// Update successful
-				System.out.println("Sold updated to 1");
+				System.out.println("Sold updated ");
 
 			} else {
 				System.out.println("Product id not matching");
@@ -45,8 +44,8 @@ public class ProductDAO {
 		}
 	}
 
-	public void updateProductFlagTo0(Long productId) {
-		String sql = "UPDATE product SET sold=0 WHERE pid = ?";
+	public void updateSoldTo300(Long productId) {
+		String sql = "UPDATE product_details SET sold=300 WHERE pid = ?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setLong(1, productId);
 			int count = ps.executeUpdate();
@@ -106,45 +105,5 @@ public class ProductDAO {
 			ex.printStackTrace();
 		}
 		return 0;
-	}
-	
-	public void updateProductStartTime(Long productId, java.sql.Date sdate) {
-		String sql = "UPDATE product set starttime=? WHERE pid = ?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setDate(1, sdate);
-			ps.setLong(2, productId);
-			int count = ps.executeUpdate();
-
-			if (count == 1) {
-				// Update successful
-				System.out.println("Start date updated");
-
-			} else {
-				System.out.println("Product id not matching");
-			}
-		} catch (SQLException ex) {
-			// Handle exception
-			ex.printStackTrace();
-		}
-	}
-	
-	public void updateProductEndTime(Long productId, java.sql.Date edate) {
-		String sql = "UPDATE product set endtime=? WHERE pid = ?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setDate(1, edate);
-			ps.setLong(2, productId);
-			int count = ps.executeUpdate();
-
-			if (count == 1) {
-				// Update successful
-				System.out.println("End date updated");
-
-			} else {
-				System.out.println("Product id not matching");
-			}
-		} catch (SQLException ex) {
-			// Handle exception
-			ex.printStackTrace();
-		}
 	}
 }

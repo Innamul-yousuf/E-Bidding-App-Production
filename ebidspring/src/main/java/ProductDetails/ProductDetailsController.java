@@ -46,4 +46,9 @@ public class ProductDetailsController {
 	public void deleteProductDetails(@PathVariable Long id) {
 		productDetailsService.deleteProductDetails(id);
 	}
+	
+	@GetMapping("/product/timer/{id}")
+	public void startTimer(@PathVariable Long id) {
+		productDetailsService.changeSoldAsTime(id);
+	}
 }

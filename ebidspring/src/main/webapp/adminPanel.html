@@ -38,6 +38,7 @@
                     <th class="text-center">Available</th>
                     <th class='col-2'>Start Bid</th>
                     <th class='col-2'>End Bid</th>
+                    <th class='col-2'>Edit Bid</th>
                 </tr>
             </thead>
             <tbody id="upcomingBidsTableBody">
@@ -65,9 +66,11 @@
                    
                  var gpid=item.pid;
                  pids.push(gpid);
-                    var row=$("<tr ><td>"+item.pid+"</td><td>"+item.pname+"</td><td>"+item.pseller+"</td><td>"+startdate+"</td><td>"+enddate+"</td><td>"+item.sold+"</td><td><button class='start-btn btn btn-success col-9 mx-auto btn-sm' data-pid='" + item.pid + "'>Start</button></td><td><button class='end-btn btn btn-danger col-9 btn-sm mx-auto' data-pid='" + item.pid + "'>End</button></td><tr>");
+                    var row=$("<tr><td>"+item.pid+"</td><td>"+item.pname+"</td><td>"+item.pseller+"</td><td>"+startdate+"</td><td>"+enddate+"</td><td>"+item.sold+"</td><td><button class='start-btn btn btn-success col-9 mx-auto btn-sm' data-pid='" + item.pid + "'>Start</button></td><td><button class='end-btn btn btn-danger col-9 btn-sm mx-auto' data-pid='" + item.pid + "'>End</button></td><td><button class='EditProduct btn btn-success col-9 mx-auto btn-sm' data-pid='"+item.pid+"'>Edit Bid</button></td><tr>");
                         $("#upcomingBidsTableBody").append(row);
                        i++;
+                     
+
 
             });
             $(".start-btn").click(function (event) {
@@ -85,7 +88,17 @@
             // handle the error here
         }
     });
+    
 });
+
+$(".EditProduct").click(function (event) {
+    var pid = $(this).data("pid");
+            sessionStorage.setItem("pid",pid);
+console.log(pid);
+            window.location.href="AdminProducts.html";
+    
+});
+
 
 $(".end-btn").click(function (event) {
     event.preventDefault();

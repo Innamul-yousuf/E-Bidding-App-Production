@@ -11,4 +11,5 @@ import Bidder.BidderService;
 @ComponentScan(basePackages = "Product")
 public interface ProductDetailsRespository extends JpaRepository<ProductDetails, Long>{
 //public int checkValidBidAndUpdate(Long bid_amt, Long pid, Long bid);
+	
 }
